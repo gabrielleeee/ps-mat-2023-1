@@ -8,10 +8,10 @@ module.exports =
     "database": process.env.DB_DATABASE,
     "host": process.env.DB_HOST,
     "dialect": process.env.DB_DIALECT,
-    "define": {
+    /*"define": {
       "underscored": true,
       "underscoredAll": true
-    }
+    }*/
   },
   "test": {
     "username": "root",
@@ -19,10 +19,10 @@ module.exports =
     "database": "database_test",
     "host": "127.0.0.1",
     "dialect": "mysql",
-    "define": {
+    /*"define": {
       "underscored": true,
       "underscoredAll": true
-    }
+    }*/
   },
   "production": {
     "username": "root",
@@ -30,9 +30,9 @@ module.exports =
     "database": "database_production",
     "host": "127.0.0.1",
     "dialect": "mysql",
-    "define": {
+    /*"define": {
       "underscored": true,
       "underscoredAll": true
-    }
+    }*/
   }
 }
