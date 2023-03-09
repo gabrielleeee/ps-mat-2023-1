@@ -42,4 +42,16 @@ app.use('/channels', channels)
 const paymentMethods = require('./routes/payment_methods')
 app.use('/payment_methods', paymentMethods)
 
+const carriers = require('./routes/carriers')
+app.use('/carriers', carriers)
+
+const shipmentPriorities = require('./routes/shipment_priorities')
+app.use('/shipment_priorities', shipmentPriorities)
+
+const tags = require('./routes/tags')
+app.use('/tags', tags)
+
+const cities = require('./routes/cities')
+app.use('/cities', cities)
+
 module.exports = app;

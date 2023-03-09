@@ -6,3 +6,15 @@ npx sequelize-cli model:generate --name Channel --attributes id:integer,descript
 
 Gerar model + migration
 npx sequelize-cli model:generate --name PaymentMethod --attributes description:string,operator_fee:decimal
+
+Gerar model + migration
+npx sequelize-cli model:generate --name Carrier --attributes name:string
+
+Gerar model + migration
+npx sequelize-cli model:generate --name ShipmentPriority --attributes description:string
+
+Gerar model + migration
+npx sequelize-cli model:generate --name Tag --attributes description:string,color:string,type:enum
+
+Gerar model + migration
+npx sequelize-cli model:generate --name City --attributes name:string,state:string
