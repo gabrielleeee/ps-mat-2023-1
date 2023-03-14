@@ -18,3 +18,21 @@ npx sequelize-cli model:generate --name Tag --attributes description:string,colo
 
 Gerar model + migration
 npx sequelize-cli model:generate --name City --attributes name:string,state:string
+
+Gerar model + migration
+npx sequelize-cli model:generate --name OrderStatus --attributes sequence:tinyint,description:string
+
+Gerar model + migration
+npx sequelize-cli model:generate --name OrderTag --attributes order_id:integer,tag_id:integer
+
+Gerar model + migration
+npx sequelize-cli model:generate --name CustomerTag --attributes customer_id:integer,tag_id:integer
+
+Gerar model + migration
+npx sequelize-cli model:generate --name Customer --attributes name:string,address:text,phone:string,is_whatsapp:boolean,city_id:integer
+
+Gerar model + migration
+npx sequelize-cli model:generate --name OrderRelStatus --attributes order_id:integer,order_status_id:integer,user_id:integer
+
+Gerar model + migration
+npx sequelize-cli model:generate --name Order --attributes external_code:string,theme:string,description:text,remarks:text,pic_url:string,custom_name:string,custom_age:tinyint,order_date:date,event_date:date,artwork_date:date,shipment_date:date,total_amount:decimal,customer_id:integer,channel_id:integer,carrier_id:integer,shipment_priority_id:integer,payment_method:integer

@@ -54,4 +54,22 @@ app.use('/tags', tags)
 const cities = require('./routes/cities')
 app.use('/cities', cities)
 
+const orderStatuses = require('./routes/order_statuses')
+app.use('/order_statuses', orderStatuses)
+
+const orderTags = require('./routes/order_tags')
+app.use('/order_tags', orderTags)
+
+const customerTags = require('./routes/customer_tags')
+app.use('/customer_tags', customerTags)
+
+const customers = require('./routes/customers')
+app.use('/customers', customers)
+
+const orderRelStatuses = require('./routes/order_rel_statuses')
+app.use('/order_rel_statuses', orderRelStatuses)
+
+const orders = require('./routes/orders')
+app.use('/orders', orders)
+
 module.exports = app;
