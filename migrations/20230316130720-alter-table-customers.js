@@ -15,7 +15,9 @@ module.exports = {
       onDelete: 'RESTRICT',     //Não deixa apagar uma city em uso no customer
       onUpdate: 'CASCADE'       //Atualiza city_id em customer se id em city mudar
     })
+
   },
+  
 
   async down (queryInterface, Sequelize) {
     //Reverte a alterações do up()
