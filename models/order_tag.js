@@ -10,7 +10,11 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      this.belongsTo(models.OrderTag, {
+        foreignKey: 'tag_id',      //Nome do campo na tabla de ORIGEM
+        targetKey: 'id',                //Nome do campo na tabela de DESTINO
+        as: 'tag'                  //Nome do atributos para exibição
+      })
     }
   }
   OrderTag.init({

@@ -39,3 +39,9 @@ npx sequelize-cli model:generate --name Order --attributes external_code:string,
 
 Gerar model + migration
 npx sequelize-cli migration:generate --name alter-table-customer-tags
+
+npx sequelize-cli migration:generate --name alter-table-order-tag
+
+npx sequelize-cli migration:generate --name alter-table-order
+
+npx sequelize-cli migration:generate --name alter-table-order-rel-status
