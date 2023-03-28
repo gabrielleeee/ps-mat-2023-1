@@ -12,9 +12,9 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       
       this.belongsTo(models.Customer, {
-        foreignKey: 'customer_id',      //Nome do campo na tabla de ORIGEM
+        foreignKey: 'order_id',      //Nome do campo na tabla de ORIGEM
         targetKey: 'id',                //Nome do campo na tabela de DESTINO
-        as: 'customer'                  //Nome do atributos para exibição
+        as: 'order'                  //Nome do atributos para exibição
       })
       this.belongsTo(models.Tag, {
         foreignKey: 'tag_id',
