@@ -22,6 +22,15 @@ module.exports = (sequelize, DataTypes) => {
         otherKey: 'customer_id',
         as: 'customers'
       })
+
+      this.belongsToMany(models.Order, {
+        through: 'order_tags',     //Tabela intermediária
+        foreignKey: 'order_id',         //Chave strangeira da tabela iintermediaria
+        otherKey: 'tag_id',
+        as: 'orders'
+      })
+
+      
     }
   }
   Tag.init({
