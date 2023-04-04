@@ -11,14 +11,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       this.belongsToMany(models.User, {
-        through: 'order_rel_status',     //Tabela intermediária
+        through: 'order_rel_statuses',     //Tabela intermediária
         foreignKey: 'user_id',         //Chave strangeira da tabela iintermediaria
         otherKey: 'order_status_id',
         as: 'users'
       })
 
       this.belongsToMany(models.Order, {
-        through: 'order_rel_status',     //Tabela intermediária
+        through: 'order_rel_statuses',     //Tabela intermediária
         foreignKey: 'order_id',         //Chave strangeira da tabela iintermediaria
         otherKey: 'order_status_id',
         as: 'orders'

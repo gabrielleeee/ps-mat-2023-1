@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'order_status_id',         //Chave strangeira da tabela iintermediaria
         otherKey: 'order_id',
         otherKey:'user_id',
-        as: 'order_status'
+        as: 'order_statuses'
       })
     }
   }
@@ -63,7 +63,21 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'User',
-    tableName: 'users'
+    tableName: 'users',
+    //esconde o campo "password" no retrieve e no retrieveOne
+    defaultScope: {
+      attributes: {
+        exclude: ['password']
+      }
+    },
+    //inclui o campo "pasword"(necessário no login)
+    scopes: {
+      withPassword:{
+        attributes: {
+          include: ['password']
+      }
+    }
+  }
   });
   return User;
 };

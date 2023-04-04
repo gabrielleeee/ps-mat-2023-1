@@ -1,5 +1,5 @@
 //importar o model ncorrespondente ao controller
-const { OrderStatus } = require('../models')
+const { OrderStatus, User, Order } = require('../models')
 
 const controller = {}  //objeto vazio
 
@@ -27,10 +27,10 @@ controller.retrieve = async(req, res) => {
     try{
         const data = await OrderStatus.findAll({
             include: [
-                {model: User, as: 'user'},
-                {model: Order, as: 'order'}
+                {model: User, as: 'users'},
+                {model: Order, as: 'orders'}
             ]
-        }) //findAll dá um select*
+        })//.select('-password')//findAll dá um select*
         //HTTP 200: OK (implícito)
         res.send(data)
     }
@@ -41,7 +41,7 @@ controller.retrieve = async(req, res) => {
 
 controller.retrieveOne = async(req, res) => {
     try{
-        const data = await OrderStatus.findByPk(req.params.id) //findAll dá um select*
+        const data = await OrderStatus.findByPk(req.params.id)//.select //findAll dá um select*
         //HTTP 200: OK (implícito)
         if(data) res.send(data)
 

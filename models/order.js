@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'order_status_id',         //Chave strangeira da tabela iintermediaria
         otherKey: 'order_id',
         otherKey: 'user_id',
-        as: 'order_status'
+        as: 'order_statuses'
       })
     }
   }
