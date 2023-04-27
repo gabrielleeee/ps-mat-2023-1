@@ -27,11 +27,12 @@ module.exports = (sequelize, DataTypes) => {
 
       this.belongsToMany(models.OrderStatus, {
         through: 'order_rel_statuses',     //Tabela intermediária
-        foreignKey: 'order_status_id',         //Chave strangeira da tabela iintermediaria
+        foreignKey: 'order_status_id',     //Chave strangeira da tabela iintermediaria
         otherKey: 'order_id',
         otherKey: 'user_id',
         as: 'order_statuses'
       })
+      
     }
   }
   Order.init({

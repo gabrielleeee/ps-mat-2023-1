@@ -74,4 +74,10 @@ app.use('/order_rel_statuses', orderRelStatuses)
 const orders = require('./routes/orders')
 app.use('/orders', orders)
 
+const suppliers = require('./routes/suppliers') //rota do suppliers
+app.use('/suppliers', suppliers)
+
+const products = require('./routes/products') //rota do products
+app.use('/products', products)
+
 module.exports = app;
