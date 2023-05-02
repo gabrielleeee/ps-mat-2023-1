@@ -8,6 +8,7 @@ import CircularProgress from '@mui/material/CircularProgress'
 import Snackbar from '@mui/material/Snackbar'
 import Alert from '@mui/material/Alert'
 import myfetch from '../utils/myfetch'
+import PageTitle from '../components/ui/PageTitle'
 
 export default function Login() {
 
@@ -30,23 +31,24 @@ export default function Login() {
     setShowWaiting(true)        // Mostra o spinner de espera
     try {
 
-      const result = await myfetch.post('/users/login', {email, password})
+      const result = await myfetch.post('/users/login', { email, password })
 
       window.localStorage.setItem('token', result.token)
 
-      //Exibe o snackbar de sucesso
-        setSnack({
-          show: true,
-          message: 'Autenticação realizada com sucesso!',
-          severity: 'success'
-        })
-    
+      // Exibe o snackbar de sucesso
+      setSnack({
+        show: true,
+        message: 'Autenticação realizada com sucesso!',
+        severity: 'success'
+      })
+
     }
     catch(error) {
       console.error(error)
-     //Apaga o token de autenticação no localtoage, caso exista
-      window.localStorage.removeItem('token')
-      
+
+      // Apaga o token de autenticação no localStorage, caso exista
+      window.localStorage.removeItem('token')  
+
       // Exibe o snackbar de erro
       setSnack({
         show: true,
@@ -81,9 +83,7 @@ export default function Login() {
         </Alert>
       </Snackbar>
 
-      <Typography variant="h3" component="h1" sx={{ textAlign: 'center' }}>
-        Autentique-se
-      </Typography>
+      <PageTitle title="Autentique-se" />
 
       <Paper sx={{
         width: '512px',
