@@ -8,18 +8,17 @@ import Backdrop from '@mui/material/Backdrop'
 import CircularProgress from '@mui/material/CircularProgress'
 import Notification from '../../components/ui/Notification'
 import { useNavigate } from 'react-router-dom'
-import PaymentMethod from '../../models/PaymentMethod'
+import ShipmentPriority from '../../models/ShipmentPriority'
 import getValidationMessages from '../../utils/getValidationMessages';
 
-export default function PaymentMethodForm() {
-    const API_PATH = '/payment_methods'
+export default function ShipmentPriorityForm() {
+    const API_PATH = '/shipment_priority'
 
     const navigate = useNavigate()
   
     const [state, setState] = React.useState({
-      paymentMethod: {
-        dscription: '',
-        operator_fee: ''
+      shipmentPriority: {
+        dscription: ''
       },
       errors: {},
       showWaiting: false,
@@ -30,16 +29,16 @@ export default function PaymentMethodForm() {
       }
     })
     const {
-      paymentMethod,
+      shipmentPriority,
       errors,
       showWaiting,
       notif
     } = state
   
     function handleFormFieldChange(event) {
-      const paymentMethodCopy = {...paymentMethod}
-      paymentMethodCopy[event.target.name] = event.target.value
-      setState({...state, paymentMethod: paymentMethodCopy})
+      const shipmentPriorityCopy = {...shipmentPriority}
+      shipmentPriorityCopy[event.target.name] = event.target.value
+      setState({...state, shipmentPriority: shipmentPriorityCopy})
     }
   
     function handleFormSubmit(event) {
@@ -53,9 +52,9 @@ export default function PaymentMethodForm() {
       setState({...state, showWaiting: true, errors: {}})
       try {
         //Chama a validação da biblioteca Joi
-        await PaymentMethod.validateAsync(paymentMethod, {abortEarly: false})
+        await ShipmentPriority.validateAsync(shipmentPriority, {abortEarly: false})
 
-        await myfetch.post(API_PATH, paymentMethod)
+        await myfetch.post(API_PATH, shipmentPriority)
         // DAR FEEDBACK POSITIVO E VOLTAR PARA A LISTAGEM
         setState({
           ...state,
@@ -114,7 +113,7 @@ export default function PaymentMethodForm() {
           {notif.message}
       </Notification>
         
-        <PageTitle title="Cadastrar novo método de pagamento" />
+        <PageTitle title="Cadastrar nova descrição" />
 
 
         <form onSubmit={handleFormSubmit}>
@@ -124,25 +123,13 @@ export default function PaymentMethodForm() {
             fullWidth
             required
             name="description"  // Nome do campo na tabela
-            value={paymentMethod.description}   // Nome do campo na tabela
+            value={shipmentPriority.description}   // Nome do campo na tabela
             onChange={handleFormFieldChange}
             error={errors?.description}
             helperText={errors?.description}
           />
-  
-          <TextField 
-            label="Taxa de operação" 
-            variant="filled"
-            type="number"
-            fullWidth
-            required
-            name="operator_fee"  // Nome do campo na tabela
-            value={paymentMethod.operator_fee}   // Nome do campo na tabela
-            onChange={handleFormFieldChange}
-            error={errors?.operator_fee}
-            helperText={errors?.operator_fee}
-          />
-  
+
+
           <Fab 
             variant="extended" 
             color="secondary"
