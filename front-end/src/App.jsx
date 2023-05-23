@@ -26,6 +26,7 @@ return(
             <Route path="/login" element={<Login />}/>
             <Route path="/payment_method" element={<AuthGuard> <PaymentMethodList/> </AuthGuard>} />
             <Route path="/payment_method/new" element={ <AuthGuard> <PaymentMethodForm /> </AuthGuard>} />
+            <Route path="/payment_method/:id" element={ <AuthGuard> <PaymentMethodForm /> </AuthGuard>} />
             <Route path="/shipment_priority" element={<AuthGuard> <ShipmentPriorityList/> </AuthGuard>} />
             <Route path="/shipment_priority/new" element={ <AuthGuard> <ShipmentPriorityForm /> </AuthGuard>} />
           </Routes>
