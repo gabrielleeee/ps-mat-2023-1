@@ -1,6 +1,6 @@
 import Joi from 'joi'
 
-const SomeEnumType = { TypeA: 'O', TypeB: 'C' };
+const EnumType = { TypeA: 'O', TypeB: 'C' };
 
 const Tag = Joi.object({
     description: Joi.string()
@@ -15,10 +15,10 @@ const Tag = Joi.object({
        .required()
        .messages({'*': 'A cor é obrigatória (entre 2 e 30 caracteres)'}),
 
-       type: Joi.enum()
-       .valid(...Object.values(SomeEnumType))
+       type: Joi.string()
+       .valid(...Object.values(EnumType))
        .required()
-       .messages({'*': 'O tipo é obrigatório (entre 0 e 30 caracteres)'}),
+       .messages({'*': 'O tipo é obrigatório (entrada deve ser "O" ou "C")'}),
 
 })
 
