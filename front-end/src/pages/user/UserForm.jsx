@@ -8,19 +8,23 @@ import Backdrop from '@mui/material/Backdrop'
 import CircularProgress from '@mui/material/CircularProgress'
 import Notification from '../../components/ui/Notification'
 import { useNavigate, useParams } from 'react-router-dom'
-import OrderStatus from '../../models/OrderStatus'
+import User from '../../models/User'
 import getValidationMessages from '../../utils/getValidationMessages';
 
-export default function OrderStatusForm() {
-    const API_PATH = '/order_statuses'
+export default function UserForm() {
+    const API_PATH = '/users'
 
     const navigate = useNavigate()
     const params = useParams()
   
     const [state, setState] = React.useState({
-      orderStatus: {
-        description: '',
-        sequence: ''
+      user: {
+        name: '',
+        email: '',
+        verified_email: '', //boleano
+        is_admin: '', //boleano
+        phone: '',
+        password: ''
       },
       errors: {},
       showWaiting: false,
@@ -31,16 +35,16 @@ export default function OrderStatusForm() {
       }
     })
     const {
-      orderStatus,
+      user,
       errors,
       showWaiting,
       notif
     } = state
   
     function handleFormFieldChange(event) {
-      const orderStatusCopy = {...orderStatus}
-      orderStatusCopy[event.target.name] = event.target.value
-      setState({...state, orderStatus: orderStatusCopy})
+      const userCopy = {...user}
+      userCopy[event.target.name] = event.target.value
+      setState({...state, user: userCopy})
     }
   
     function handleFormSubmit(event) {
@@ -62,7 +66,7 @@ export default function OrderStatusForm() {
         const result = await myfetch.get(`${API_PATH}/${params.id}`)
           setState({
             ...state,
-            orderStatus: result,
+            user: result,
             showWaiting: false
           })
       }
@@ -85,13 +89,13 @@ export default function OrderStatusForm() {
       setState({...state, showWaiting: true, errors: {}})
       try {
         //Chama a validação da biblioteca Joi
-        await OrderStatus.validateAsync(orderStatus, {abortEarly: false})
+        await User.validateAsync(user, {abortEarly: false})
 
         //registro já existe: chama put para atualizar
-        if(params.id) await myfetch.put(`${API_PATH}/${params.id}`, orderStatus)
+        if(params.id) await myfetch.put(`${API_PATH}/${params.id}`, user)
 
         //registro não exist: chama post para criar
-        else await myfetch.post(API_PATH, orderStatus)
+        else await myfetch.post(API_PATH, user)
        
         // DAR FEEDBACK POSITIVO E VOLTAR PARA A LISTAGEM
         setState({
@@ -151,35 +155,82 @@ export default function OrderStatusForm() {
           {notif.message}
       </Notification>
         
-        <PageTitle title={params.id ? "Editar status do pedido: " : "Cadastrar novo status do pedido"} />
+        <PageTitle title={params.id ? "Editar usuário " : "Cadastrar novo usuário"} />
 
 
         <form onSubmit={handleFormSubmit}>
           <TextField 
-            label="Descrição" 
+            label="Nome" 
             variant="filled"
             fullWidth
             required
-            name="description"  // Nome do campo na tabela
-            value={orderStatus.description}   // Nome do campo na tabela
+            name="name"  // Nome do campo na tabela
+            value={user.name}   // Nome do campo na tabela
             onChange={handleFormFieldChange}
-            error={errors?.description}
-            helperText={errors?.description}
+            error={errors?.name}
+            helperText={errors?.name}
+          />
+
+            <TextField 
+            label="E-mail" 
+            variant="filled"
+            fullWidth
+            required
+            name="email"  // Nome do campo na tabela
+            value={user.email}   // Nome do campo na tabela
+            onChange={handleFormFieldChange}
+            error={errors?.email}
+            helperText={errors?.email}
           />
   
+            <TextField 
+            label="E-mail Verificado" 
+            variant="filled"
+            fullWidth
+            required
+            name="verified_email"  // Nome do campo na tabela
+            value={user.verified_email}   // Nome do campo na tabela
+            onChange={handleFormFieldChange}
+            error={errors?.verified_email}
+            helperText={errors?.verified_email}
+          />
+
+            <TextField 
+            label="Administrador" 
+            variant="filled"
+            fullWidth
+            required
+            name="is_admin"  // Nome do campo na tabela
+            value={user.is_admin}   // Nome do campo na tabela
+            onChange={handleFormFieldChange}
+            error={errors?.is_admin}
+            helperText={errors?.is_admin}
+          />
           <TextField 
-            label="Sequencia" 
+            label="Telefone" 
             variant="filled"
             type="number"
             fullWidth
             required
-            name="sequence"  // Nome do campo na tabela
-            value={orderStatus.sequence}   // Nome do campo na tabela
+            name="phone"  // Nome do campo na tabela
+            value={user.phone}   // Nome do campo na tabela
             onChange={handleFormFieldChange}
-            error={errors?.sequence}
-            helperText={errors?.sequence}
+            error={errors?.phone}
+            helperText={errors?.phone}
           />
   
+            <TextField 
+            label="Senha" 
+            variant="filled"
+            fullWidth
+            required
+            name="password"  // Nome do campo na tabela
+            value={user.password}   // Nome do campo na tabela
+            onChange={handleFormFieldChange}
+            error={errors?.password}
+            helperText={errors?.password}
+          />
+
           <Fab 
             variant="extended" 
             color="secondary"
