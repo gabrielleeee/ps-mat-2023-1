@@ -8,18 +8,20 @@ import Backdrop from '@mui/material/Backdrop'
 import CircularProgress from '@mui/material/CircularProgress'
 import Notification from '../../components/ui/Notification'
 import { useNavigate, useParams } from 'react-router-dom'
-import ShipmentPriority from '../../models/ShipmentPriority'
+import Tag from '../../models/Tag'
 import getValidationMessages from '../../utils/getValidationMessages';
 
-export default function ShipmentPriorityForm() {
-    const API_PATH = '/shipment_priorities'
+export default function TagForm() {
+    const API_PATH = '/tags'
 
     const navigate = useNavigate()
     const params = useParams()
   
     const [state, setState] = React.useState({
-      shipmentPriority: {
+      tag: {
         description: '',
+        color: '',
+        type: '',
       },
       errors: {},
       showWaiting: false,
@@ -30,16 +32,16 @@ export default function ShipmentPriorityForm() {
       }
     })
     const {
-      shipmentPriority,
+      tag,
       errors,
       showWaiting,
       notif
     } = state
   
     function handleFormFieldChange(event) {
-      const shipmentPriorityCopy = {...shipmentPriority}
-      shipmentPriorityCopy[event.target.name] = event.target.value
-      setState({...state, shipmentPriority: shipmentPriorityCopy})
+      const tagCopy = {...tag}
+      tagCopy[event.target.name] = event.target.value
+      setState({...state, tag: tagCopy})
     }
   
     function handleFormSubmit(event) {
@@ -61,7 +63,7 @@ export default function ShipmentPriorityForm() {
         const result = await myfetch.get(`${API_PATH}/${params.id}`)
           setState({
             ...state,
-            shipmentPriority: result,
+            tag: result,
             showWaiting: false
           })
       }
@@ -84,13 +86,13 @@ export default function ShipmentPriorityForm() {
       setState({...state, showWaiting: true, errors: {}})
       try {
         //Chama a validação da biblioteca Joi
-        await ShipmentPriority.validateAsync(shipmentPriority, {abortEarly: false})
+        await Tag.validateAsync(tag, {abortEarly: false})
 
         //registro já existe: chama put para atualizar
-        if(params.id) await myfetch.put(`${API_PATH}/${params.id}`, shipmentPriority)
+        if(params.id) await myfetch.put(`${API_PATH}/${params.id}`, tag)
 
         //registro não exist: chama post para criar
-        else await myfetch.post(API_PATH, shipmentPriority)
+        else await myfetch.post(API_PATH, tag)
        
         // DAR FEEDBACK POSITIVO E VOLTAR PARA A LISTAGEM
         setState({
@@ -150,7 +152,7 @@ export default function ShipmentPriorityForm() {
           {notif.message}
       </Notification>
         
-        <PageTitle title={params.id ? "Editar prioridade de envio" : "Cadastrar nova prioridade de envio"} />
+        <PageTitle title={params.id ? "Editar etiqueta " : "Cadastrar nova etiqueta"} />
 
 
         <form onSubmit={handleFormSubmit}>
@@ -160,12 +162,35 @@ export default function ShipmentPriorityForm() {
             fullWidth
             required
             name="description"  // Nome do campo na tabela
-            value={shipmentPriority.description}   // Nome do campo na tabela
+            value={tag.description}   // Nome do campo na tabela
             onChange={handleFormFieldChange}
             error={errors?.description}
             helperText={errors?.description}
           />
   
+          <TextField 
+            label="Cor" 
+            variant="filled"
+            fullWidth
+            required
+            name="color"  // Nome do campo na tabela
+            value={tag.color}   // Nome do campo na tabela
+            onChange={handleFormFieldChange}
+            error={errors?.color}
+            helperText={errors?.color}
+          />
+  
+            <TextField 
+            label="Tipo" 
+            variant="filled"
+            fullWidth
+            required
+            name="type"  // Nome do campo na tabela
+            value={tag.type}   // Nome do campo na tabela
+            onChange={handleFormFieldChange}
+            error={errors?.type}
+            helperText={errors?.type}
+          />
           <Fab 
             variant="extended" 
             color="secondary"

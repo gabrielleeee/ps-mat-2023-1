@@ -35,7 +35,7 @@ export default function Login() {
       window.localStorage.setItem('token', result.token)
 
       // Exibe o snackbar de sucesso
-      setSnack({
+      setNotif({
         show: true,
         message: 'Autenticação realizada com sucesso!',
         severity: 'success'
@@ -49,7 +49,7 @@ export default function Login() {
       window.localStorage.removeItem('token')  
 
       // Exibe o snackbar de erro
-      setSnack({
+      setNotif({
         show: true,
         message: error.message,
         severity: 'error'

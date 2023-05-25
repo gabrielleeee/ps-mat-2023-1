@@ -8,18 +8,19 @@ import Backdrop from '@mui/material/Backdrop'
 import CircularProgress from '@mui/material/CircularProgress'
 import Notification from '../../components/ui/Notification'
 import { useNavigate, useParams } from 'react-router-dom'
-import ShipmentPriority from '../../models/ShipmentPriority'
+import Channel from '../../models/Channel'
 import getValidationMessages from '../../utils/getValidationMessages';
 
-export default function ShipmentPriorityForm() {
-    const API_PATH = '/shipment_priorities'
+export default function ChannelForm() {
+    const API_PATH = '/channels'
 
     const navigate = useNavigate()
     const params = useParams()
   
     const [state, setState] = React.useState({
-      shipmentPriority: {
+      channel: {
         description: '',
+        commission_fee: ''
       },
       errors: {},
       showWaiting: false,
@@ -30,16 +31,16 @@ export default function ShipmentPriorityForm() {
       }
     })
     const {
-      shipmentPriority,
+      channel,
       errors,
       showWaiting,
       notif
     } = state
   
     function handleFormFieldChange(event) {
-      const shipmentPriorityCopy = {...shipmentPriority}
-      shipmentPriorityCopy[event.target.name] = event.target.value
-      setState({...state, shipmentPriority: shipmentPriorityCopy})
+      const channelCopy = {...channel}
+      channelCopy[event.target.name] = event.target.value
+      setState({...state, channel: channelCopy})
     }
   
     function handleFormSubmit(event) {
@@ -61,7 +62,7 @@ export default function ShipmentPriorityForm() {
         const result = await myfetch.get(`${API_PATH}/${params.id}`)
           setState({
             ...state,
-            shipmentPriority: result,
+            channel: result,
             showWaiting: false
           })
       }
@@ -84,13 +85,13 @@ export default function ShipmentPriorityForm() {
       setState({...state, showWaiting: true, errors: {}})
       try {
         //Chama a validação da biblioteca Joi
-        await ShipmentPriority.validateAsync(shipmentPriority, {abortEarly: false})
+        await Channel.validateAsync(channel, {abortEarly: false})
 
         //registro já existe: chama put para atualizar
-        if(params.id) await myfetch.put(`${API_PATH}/${params.id}`, shipmentPriority)
+        if(params.id) await myfetch.put(`${API_PATH}/${params.id}`, channel)
 
         //registro não exist: chama post para criar
-        else await myfetch.post(API_PATH, shipmentPriority)
+        else await myfetch.post(API_PATH, channel)
        
         // DAR FEEDBACK POSITIVO E VOLTAR PARA A LISTAGEM
         setState({
@@ -150,7 +151,7 @@ export default function ShipmentPriorityForm() {
           {notif.message}
       </Notification>
         
-        <PageTitle title={params.id ? "Editar prioridade de envio" : "Cadastrar nova prioridade de envio"} />
+        <PageTitle title={params.id ? "Editar canal " : "Cadastrar novo canal"} />
 
 
         <form onSubmit={handleFormSubmit}>
@@ -160,10 +161,23 @@ export default function ShipmentPriorityForm() {
             fullWidth
             required
             name="description"  // Nome do campo na tabela
-            value={shipmentPriority.description}   // Nome do campo na tabela
+            value={channel.description}   // Nome do campo na tabela
             onChange={handleFormFieldChange}
             error={errors?.description}
             helperText={errors?.description}
+          />
+  
+          <TextField 
+            label="Taxa de operação" 
+            variant="filled"
+            type="number"
+            fullWidth
+            required
+            name="commission_fee"  // Nome do campo na tabela
+            value={channel.commission_fee}   // Nome do campo na tabela
+            onChange={handleFormFieldChange}
+            error={errors?.commission_fee}
+            helperText={errors?.commission_fee}
           />
   
           <Fab 

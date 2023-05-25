@@ -15,11 +15,11 @@ import Button from '@mui/material/Button'
 import { Link } from 'react-router-dom'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 
-export default function ShipmentPriorityList() {
-  const API_PATH = '/shipment_priorities'
+export default function TagList() {
+  const API_PATH = '/tags'
 
   const [state, setState] = React.useState({
-    shipmentPriorities: [],
+    tags: [],
     showWaiting: false,
     showDialog: false,
     deleteId: null,
@@ -30,7 +30,7 @@ export default function ShipmentPriorityList() {
     }
   })
   const {
-    shipmentPriorities,
+    tags,
     showWaiting,
     showDialog,
     deleteId,
@@ -43,7 +43,7 @@ export default function ShipmentPriorityList() {
       const result = await myfetch.get(API_PATH)
       setState({ 
         ...state, 
-        shipmentPriorities: result, 
+        tags: result, 
         showWaiting: false,
         showDialog: false
       })
@@ -67,6 +67,16 @@ export default function ShipmentPriorityList() {
     {
       field: 'description',
       headerName: 'Descrição',
+      width: 150
+    },
+    {
+      field: 'color',
+      headerName: 'Cor',
+      width: 150
+    },
+        {
+      field: 'type',
+      headerName: 'Tipo',
       width: 150
     },
     {
@@ -175,7 +185,7 @@ export default function ShipmentPriorityList() {
         {notif.message}
       </Notification>
 
-      <PageTitle title="Listagem de prioridades de envio"  />
+      <PageTitle title="Listagem de etiquetas"  />
 
       <Box sx={{
         display: "flex",
@@ -196,7 +206,7 @@ export default function ShipmentPriorityList() {
 
       <Paper elevation={4} sx={{ height: 400, width: '100%' }}>
         <DataGrid
-          rows={shipmentPriorities}
+          rows={tags}
           columns={columns}
           initialState={{
             pagination: {

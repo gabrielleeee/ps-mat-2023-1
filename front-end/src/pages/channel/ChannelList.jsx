@@ -15,11 +15,11 @@ import Button from '@mui/material/Button'
 import { Link } from 'react-router-dom'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 
-export default function ShipmentPriorityList() {
-  const API_PATH = '/shipment_priorities'
+export default function ChannelList() {
+  const API_PATH = '/channels'
 
   const [state, setState] = React.useState({
-    shipmentPriorities: [],
+    channels: [],
     showWaiting: false,
     showDialog: false,
     deleteId: null,
@@ -30,7 +30,7 @@ export default function ShipmentPriorityList() {
     }
   })
   const {
-    shipmentPriorities,
+    channels,
     showWaiting,
     showDialog,
     deleteId,
@@ -43,7 +43,7 @@ export default function ShipmentPriorityList() {
       const result = await myfetch.get(API_PATH)
       setState({ 
         ...state, 
-        shipmentPriorities: result, 
+        channels: result, 
         showWaiting: false,
         showDialog: false
       })
@@ -67,6 +67,11 @@ export default function ShipmentPriorityList() {
     {
       field: 'description',
       headerName: 'Descrição',
+      width: 150
+    },
+    {
+      field: 'commission_fee',
+      headerName: 'Taxa de operação',
       width: 150
     },
     {
@@ -175,7 +180,7 @@ export default function ShipmentPriorityList() {
         {notif.message}
       </Notification>
 
-      <PageTitle title="Listagem de prioridades de envio"  />
+      <PageTitle title="Listagem de canais"  />
 
       <Box sx={{
         display: "flex",
@@ -196,7 +201,7 @@ export default function ShipmentPriorityList() {
 
       <Paper elevation={4} sx={{ height: 400, width: '100%' }}>
         <DataGrid
-          rows={shipmentPriorities}
+          rows={channels}
           columns={columns}
           initialState={{
             pagination: {

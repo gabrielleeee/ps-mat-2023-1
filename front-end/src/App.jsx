@@ -8,6 +8,12 @@ import PaymentMethodList from './pages/payment_method/PaymentMethodList'
 import PaymentMethodForm from './pages/payment_method/PaymentMethodForm'
 import ShipmentPriorityList from './pages/shipment_priority/ShipmentPriorityList'
 import ShipmentPriorityForm from './pages/shipment_priority/ShipmentPriorityForm'
+import CarrierForm from './pages/carrier/CarrierForm'
+import CarrierList from './pages/carrier/CarrierList'
+import ChannelForm from './pages/channel/ChannelForm'
+import ChannelList from './pages/channel/ChannelList'
+import TagForm from './pages/tag/TagForm'
+import TagList from './pages/tag/TagList'
 
 function AuthGuard({children}) {
   // Estaremos autenticados se tivermos um token gravado no localStorage
@@ -29,6 +35,16 @@ return(
             <Route path="/payment_method/:id" element={ <AuthGuard> <PaymentMethodForm /> </AuthGuard>} />
             <Route path="/shipment_priority" element={<AuthGuard> <ShipmentPriorityList/> </AuthGuard>} />
             <Route path="/shipment_priority/new" element={ <AuthGuard> <ShipmentPriorityForm /> </AuthGuard>} />
+            <Route path="/shipment_priority/:id" element={ <AuthGuard> <ShipmentPriorityForm /> </AuthGuard>} />
+            <Route path="/carrier" element={<AuthGuard> <CarrierList/> </AuthGuard>} />
+            <Route path="/carrier/new" element={ <AuthGuard> <CarrierForm /> </AuthGuard>} />
+            <Route path="/carrier/:id" element={ <AuthGuard> <CarrierForm /> </AuthGuard>} />
+            <Route path="/channel" element={<AuthGuard> <ChannelList/> </AuthGuard>} />
+            <Route path="/channel/new" element={ <AuthGuard> <ChannelForm /> </AuthGuard>} />
+            <Route path="/channel/:id" element={ <AuthGuard> <ChannelForm /> </AuthGuard>} />
+            <Route path="/tag" element={<AuthGuard> <TagList/> </AuthGuard>} />
+            <Route path="/tag/new" element={ <AuthGuard> <TagForm /> </AuthGuard>} />
+            <Route path="/tag/:id" element={ <AuthGuard> <TagForm /> </AuthGuard>} />
           </Routes>
         </Box>
 		</BrowserRouter>
