@@ -4,8 +4,8 @@ const jwt =require('jsonwebtoken')
 module.exports = (req, res, next) => {
 
     //Gambiara paa não precisar fazer login
-    next()
-    return
+    //next()
+    //return
 
     const bypassRoutes = [
         {url: '/users/login', method: 'POST'}
@@ -19,14 +19,21 @@ module.exports = (req, res, next) => {
     }
 
     //É necessário ter o token para continuar
-    const bearerHeader = req.headers['authorization']
+    //const bearerHeader = req.headers['authorization']
 
     //O token não foi passado -> HTTP 403: Forbissen 
-    if(!bearerHeader) return res.status(403).end()
-
+    //if(!bearerHeader) return res.status(403).end()
+    
     //Extrai o token de dentro do cabeçalho "authorization"
-    const temp = bearerHeader.split(' ')
-    const token = temp[1]
+    //const temp = bearerHeader.split(' ')
+    //const token = temp[1]
+
+    //verifica se o token foi enviado por meio de cookie
+    const token = req.cookies['AUTH']
+    console.log({token})
+
+    //se não houver tokn -> HTTP 403: Forbidden
+    if(!token) return res.status(403).end()
 
     //Validando o token
     jwt.verify(token, process.env.TOKEN_SECRET, (error, decoded)=> {
@@ -38,7 +45,7 @@ module.exports = (req, res, next) => {
         //request para usar depois
         req.authUser = decoded
 
-        console.log({authUser: req.authUser})
+        //console.log({authUser: req.authUser})
 
         next()
     })

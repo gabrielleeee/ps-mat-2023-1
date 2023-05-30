@@ -13,7 +13,10 @@ var usersRouter = require('./routes/users');
 var app = express();
 
 const cors = require('cors')
-app.use(cors())
+app.use(cors({
+    origin: process.env.FRONT_ORIGIN,
+    credentials: true //exige o envio de cookie com credenciais
+}))
 
 //Conexão colm Banco de Dados-------------------------------------------------
 
