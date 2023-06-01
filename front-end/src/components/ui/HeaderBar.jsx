@@ -11,7 +11,7 @@ import CircularProgress from '@mui/material/CircularProgress'
 import ConfirmDialog from './ComfirmDialog';
 import myfetch from '../../utils/myfetch'
 
-export default function HeaderBar(isLoggedIn, onLoginLogout) {
+export default function HeaderBar({isLoggedIn, onLoginLogout}) {
 
   const [state, setState] = React.useState({
     showDialog: false,
